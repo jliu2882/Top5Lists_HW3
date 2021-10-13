@@ -41,12 +41,14 @@ function ListCard(props) {
 
     function handleKeyPress(event) {
         if (event.code === "Enter") {
-            let id = event.target.id.substring("list-".length);
-            store.changeListName(id, text);
-            toggleEdit();
+            handleBlur();
         }
     }
-
+    function handleBlur(event){
+        let id = event.target.id.substring("list-".length);
+        store.changeListName(id, text);
+        toggleEdit();
+    }
     function handleUpdateText(event) {
         setText(event.target.value );
     }
@@ -91,10 +93,12 @@ function ListCard(props) {
     if (editActive) {
         cardElement =
             <input
+                autoFocus
                 id={"list-" + idNamePair._id}
                 className='list-card'
                 type='text'
                 onKeyPress={handleKeyPress}
+                onBlur={handleBlur}
                 onChange={handleUpdateText}
                 defaultValue={idNamePair.name}
             />;
