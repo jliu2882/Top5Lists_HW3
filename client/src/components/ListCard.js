@@ -41,7 +41,7 @@ function ListCard(props) {
 
     function handleKeyPress(event) {
         if (event.code === "Enter") {
-            handleBlur();
+            handleBlur(event);
         }
     }
     function handleBlur(event){
