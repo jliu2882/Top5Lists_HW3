@@ -28,9 +28,8 @@ function ListCard(props) {
     }
     function handleDeleteList(event){
         event.stopPropagation();
-        //temp code to show modal TODO
+        //MARK THE CURRENT LIST TODO
         store.showDeleteListModal();
-        //store.deleteList();
     }
     function handleToggleEdit(event) {
         event.stopPropagation();

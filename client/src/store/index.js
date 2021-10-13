@@ -282,14 +282,17 @@ export const useGlobalStore = () => {
 
     store.deleteMarkedList = function (){
         console.log("deleting a list please");
+        //delete marked list TODO
     }
 
     store.showDeleteListModal = function (){
+        //TODO REMOVE THE DOCUMENT GETLEMENT BY ID LOL
         var deleteModal = document.getElementById("delete-modal");
         deleteModal.classList.add("is-visible");
     }
 
     store.hideDeleteListModal = function (){
+        //TODO REMOVE THE DOCUMENT GETLEMENT BY ID LOL
         var deleteModal = document.getElementById("delete-modal");
         deleteModal.classList.remove("is-visible");
     }
