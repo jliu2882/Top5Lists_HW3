@@ -17,7 +17,8 @@ export const GlobalStoreActionType = {
     CLOSE_CURRENT_LIST: "CLOSE_CURRENT_LIST",
     LOAD_ID_NAME_PAIRS: "LOAD_ID_NAME_PAIRS",
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
-    SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE"
+    SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
+    ADD_NEW_LIST: "ADD_NEW_LIST"
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -96,6 +97,16 @@ export const useGlobalStore = () => {
                     listMarkedForDeletion: null
                 });
             }
+            case GlobalStoreActionType.ADD_NEW_LIST: {
+                return setStore({
+                    idNamePairs: payload.idNamePairs,
+                    currentList: payload.top5List,
+                    newListCounter: store.newListCounter+1,
+                    isListNameEditActive: false,
+                    isItemEditActive: false,
+                    listMarkedForDeletion: null
+                });
+            }
             default:
                 return store;
         }
@@ -104,6 +115,35 @@ export const useGlobalStore = () => {
     // DRIVE THE STATE OF THE APPLICATION. WE'LL CALL THESE IN 
     // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
 
+    store.addNewList = function(payload) {
+        async function asyncAddNewList(){
+            let response = await api.createTop5List(payload);
+            if(response.data.success){
+                let top5List = response.data.top5List;
+                async function updateList(top5List) {
+                    response = await api.updateTop5ListById(top5List._id, top5List);
+                    if (response.data.success) {
+                        async function getListPairs(top5List) {
+                            response = await api.getTop5ListPairs();
+                            if (response.data.success) {
+                                let pairsArray = response.data.idNamePairs;
+                                storeReducer({
+                                    type: GlobalStoreActionType.ADD_NEW_LIST,
+                                    payload: {
+                                        idNamePairs: pairsArray,
+                                        top5List: top5List
+                                    }
+                                });
+                            }
+                        }
+                        getListPairs(top5List);
+                    }
+                }
+                updateList(top5List);
+            }
+        }
+        asyncAddNewList();
+    }
     // THIS FUNCTION PROCESSES CHANGING A LIST NAME
     store.changeListName = function (id, newName) {
         // GET THE LIST

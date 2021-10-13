@@ -15,7 +15,10 @@ const ListSelector = () => {
     useEffect(() => {
         store.loadIdNamePairs();
     }, []);
-
+    function addNewList(){
+        let payload = {"name": "Untitled"+store.newListCounter, "items": ["?", "?", "?", "?", "?"] };
+        store.addNewList(payload);
+    }
     let listCard = "";
     if (store) {
         listCard = store.idNamePairs.map((pair) => (
@@ -32,6 +35,7 @@ const ListSelector = () => {
                 <input
                     type="button"
                     id="add-list-button"
+                    onClick={addNewList}
                     className="top5-button"
                     value="+" />
                 Your Lists

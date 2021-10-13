@@ -24,6 +24,7 @@ function ListCard(props) {
             // CHANGE THE CURRENT LIST
             store.setCurrentList(_id);
         }
+        handleToggleEdit(event);
     }
 
     function handleToggleEdit(event) {
@@ -52,7 +53,6 @@ function ListCard(props) {
     function handleUpdateText(event) {
         setText(event.target.value );
     }
-
     let selectClass = "unselected-list-card";
     if (selected) {
         selectClass = "selected-list-card";
