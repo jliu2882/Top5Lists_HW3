@@ -15,12 +15,19 @@ const ListSelector = () => {
     useEffect(() => {
         store.loadIdNamePairs();
     }, []);
+    function sortKeyNamePairsByName(keyNamePairs){
+        keyNamePairs.sort((keyPair1, keyPair2) => {
+            // GET THE LISTS
+            return keyPair1.name.localeCompare(keyPair2.name);
+        });
+    }
     function addNewList(){
-        let payload = {"name": "Untitled"+store.newListCounter, "items": ["?", "?", "?", "?", "?"] };
+        let payload = {"name": "Untitled "+store.newListCounter, "items": ["?", "?", "?", "?", "?"] };
         store.addNewList(payload);
     }
     let listCard = "";
     if (store) {
+        sortKeyNamePairsByName(store.idNamePairs);
         listCard = store.idNamePairs.map((pair) => (
             <ListCard
                 key={pair._id}

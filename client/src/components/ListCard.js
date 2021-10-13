@@ -26,7 +26,12 @@ function ListCard(props) {
         }
         handleToggleEdit(event);
     }
-
+    function handleDeleteList(event){
+        event.stopPropagation();
+        //temp code to show modal TODO
+        store.showDeleteListModal();
+        //store.deleteList();
+    }
     function handleToggleEdit(event) {
         event.stopPropagation();
         toggleEdit();
@@ -47,11 +52,11 @@ function ListCard(props) {
     }
     function handleBlur(event){
         let id = event.target.id.substring("list-".length);
-        store.changeListName(id, text);
+        store.changeListName(id, event.target.value); //for some reason setting text here doesnt change the value of text on new lists ya gotta do whatya
         toggleEdit();
     }
     function handleUpdateText(event) {
-        setText(event.target.value );
+        setText(event.target.value);
     }
     let selectClass = "unselected-list-card";
     if (selected) {
@@ -78,6 +83,7 @@ function ListCard(props) {
                 type="button"
                 id={"delete-list-" + idNamePair._id}
                 className="list-card-button"
+                onClick={handleDeleteList}
                 value={"\u2715"}
             />
             <input

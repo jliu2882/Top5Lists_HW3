@@ -18,7 +18,8 @@ export const GlobalStoreActionType = {
     LOAD_ID_NAME_PAIRS: "LOAD_ID_NAME_PAIRS",
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
     SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
-    ADD_NEW_LIST: "ADD_NEW_LIST"
+    ADD_NEW_LIST: "ADD_NEW_LIST",
+    DELETE_LIST: "DELETE_LIST"
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -33,8 +34,7 @@ export const useGlobalStore = () => {
         currentList: null,
         newListCounter: 0,
         listNameActive: false,
-        itemActive: false,
-        listMarkedForDeletion: null
+        itemActive: false
     });
 
     // HERE'S THE DATA STORE'S REDUCER, IT MUST
@@ -115,7 +115,7 @@ export const useGlobalStore = () => {
     // DRIVE THE STATE OF THE APPLICATION. WE'LL CALL THESE IN 
     // RESPONSE TO EVENTS INSIDE OUR COMPONENTS.
 
-    store.addNewList = function(payload) {
+    store.addNewList = function(payload) { //just relocated the rename list to add new list :))
         async function asyncAddNewList(){
             let response = await api.createTop5List(payload);
             if(response.data.success){
@@ -278,6 +278,20 @@ export const useGlobalStore = () => {
             type: GlobalStoreActionType.SET_LIST_NAME_EDIT_ACTIVE,
             payload: null
         });
+    }
+
+    store.deleteMarkedList = function (){
+        console.log("deleting a list please");
+    }
+
+    store.showDeleteListModal = function (){
+        var deleteModal = document.getElementById("delete-modal");
+        deleteModal.classList.add("is-visible");
+    }
+
+    store.hideDeleteListModal = function (){
+        var deleteModal = document.getElementById("delete-modal");
+        deleteModal.classList.remove("is-visible");
     }
 
     // THIS GIVES OUR STORE AND ITS REDUCER TO ANY COMPONENT THAT NEEDS IT
