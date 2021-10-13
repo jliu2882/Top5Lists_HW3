@@ -51,7 +51,9 @@ function ListCard(props) {
     }
     function handleBlur(event){
         let id = event.target.id.substring("list-".length);
-        store.changeListName(id, event.target.value); //for some reason setting text here doesnt change the value of text on new lists ya gotta do whatya
+        handleUpdateText(event);
+        store.changeListName(id, text); //for some reason setting text here doesnt change the value of text on new lists ya gotta do whatya
+        store.changeListName(id, event.target.value); //kept the last two lines so console doesn't scream at me
         toggleEdit();
     }
     function handleUpdateText(event) {
@@ -104,7 +106,7 @@ function ListCard(props) {
                 type='text'
                 onKeyPress={handleKeyPress}
                 onBlur={handleBlur}
-                onChange={handleUpdateText}
+                onChange={handleUpdateText} //useless i think unless you add features
                 defaultValue={idNamePair.name}
             />;
     }
