@@ -102,7 +102,7 @@ export const useGlobalStore = () => {
                     idNamePairs: payload.idNamePairs,
                     currentList: payload.top5List,
                     newListCounter: store.newListCounter+1,
-                    isListNameEditActive: false,
+                    isListNameEditActive: true,
                     isItemEditActive: false,
                     listMarkedForDeletion: null
                 });
@@ -147,6 +147,9 @@ export const useGlobalStore = () => {
     // THIS FUNCTION PROCESSES CHANGING A LIST NAME
     store.changeListName = function (id, newName) {
         // GET THE LIST
+        if(newName===""){
+            newName=" ";
+        }
         async function asyncChangeListName(id) {
             let response = await api.getTop5ListById(id);
             if (response.data.success) {

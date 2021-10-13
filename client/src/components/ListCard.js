@@ -10,7 +10,7 @@ import { GlobalStoreContext } from '../store'
 */
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
-    const [ editActive, setEditActive ] = useState(false);
+    const [ editActive, setEditActive ] = useState(store.isListNameEditActive);
     const [ text, setText ] = useState("");
     store.history = useHistory();
     const { idNamePair, selected } = props;
