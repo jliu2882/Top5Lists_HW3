@@ -12,7 +12,7 @@ import { GlobalStoreContext } from '../store'
 function DeleteModal() {
     const { store } = useContext(GlobalStoreContext);
     let name = "";
-    if (store.currentList) {
+    if (store.currentList) { //store.listmarkedfordleetion
         name = store.currentList.name;
     }
     function handleDeleteList(event) {

@@ -8,7 +8,7 @@ import { Banner, ListSelector, Statusbar, Workspace } from './components'
     @author McKilla Gorilla
 */
 const App = () => {
-    return (
+    return ( //SET DEFAULT LISTS FOR IF NONE TODO
         <Router>
             <Banner />
             <Switch>

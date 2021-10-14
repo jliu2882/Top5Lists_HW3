@@ -19,7 +19,8 @@ export const GlobalStoreActionType = {
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
     SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
     ADD_NEW_LIST: "ADD_NEW_LIST",
-    DELETE_LIST: "DELETE_LIST"
+    DELETE_LIST: "DELETE_LIST",
+    MARK_LIST_FOR_DELETION: "MARK_LIST_FOR_DELETION"
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -107,8 +108,35 @@ export const useGlobalStore = () => {
                     listMarkedForDeletion: null
                 });
             }
+            case GlobalStoreActionType.DELETE_LIST: {
+                return setStore({
+                    idNamePairs: store.idNamePairs,//payload.idNamePairs,
+                    currentList: store.currentList,
+                    newListCounter: store.newListCounter,
+                    isListNameEditActive: store.isListNameEditActive,
+                    isItemEditActive: store.isItemEditActive,
+                    listMarkedForDeletion: null
+                });
+            }
+            case GlobalStoreActionType.MARK_LIST_FOR_DELETION: {
+                return setStore({
+                    idNamePairs: store.idNamePairs,
+                    currentList: store.currentList,
+                    newListCounter: store.newListCounter,
+                    isListNameEditActive: store.isListNameEditActive,
+                    isItemEditActive: store.isItemEditActive,
+                    listMarkedForDeletion: payload
+                });
+            }
             default:
-                return store;
+                return setStore({ //do nothing but fancy idk it might re-render and thats cool
+                    idNamePairs: store.idNamePairs,
+                    currentList: store.currentList,
+                    newListCounter: store.newListCounter,
+                    isListNameEditActive: store.isListNameEditActive,
+                    isItemEditActive: store.isItemEditActive,
+                    listMarkedForDeletion: store.listMarkedForDeletion
+                });
         }
     }
     // THESE ARE THE FUNCTIONS THAT WILL UPDATE OUR STORE AND
@@ -280,21 +308,63 @@ export const useGlobalStore = () => {
         });
     }
 
-    store.deleteMarkedList = function (){
-        console.log("deleting a list please");
-        //delete marked list TODO
-    }
-
-    store.showDeleteListModal = function (){
-        //TODO REMOVE THE DOCUMENT GETLEMENT BY ID LOL
-        var deleteModal = document.getElementById("delete-modal");
-        deleteModal.classList.add("is-visible");
-    }
-
     store.hideDeleteListModal = function (){
         //TODO REMOVE THE DOCUMENT GETLEMENT BY ID LOL
         var deleteModal = document.getElementById("delete-modal");
         deleteModal.classList.remove("is-visible");
+    }
+
+    store.deleteMarkedList = function (){
+        store.hideDeleteListModal();
+        //delete marked list TODO
+        console.log(store.listMarkedForDeletion+"con leche");
+        async function asyncDeleteMarkedList() {
+            const response = await api.deleteTop5ListById(store.listMarkedForDeletion);
+            if(response.data.success){
+                storeReducer({
+                    type: GlobalStoreActionType.DELETE_LIST, //why 404
+                });
+            }
+            /*if (response.data.success) {
+                if(response.data!==null){
+                    let top5List = response.data.data;
+                    async function updateList(top5List) {
+                        response = await api.updateTop5ListById(top5List._id, top5List);
+                        if (response.data.success) {
+                            async function getListPairs(top5List) {
+                                response = await api.getTop5ListPairs();
+                                if (response.data.success) {
+                                    let pairsArray = response.data.idNamePairs;
+                                    storeReducer({
+                                        type: GlobalStoreActionType.DELETE_LIST, //why 404
+                                        payload: {
+                                            idNamePairs: pairsArray,
+                                        }
+                                    });
+                                }
+                            }
+                            getListPairs(top5List);
+                        }
+                    }
+                    updateList(top5List);
+                }
+            }
+            */
+        }
+        asyncDeleteMarkedList();
+    }
+
+    store.showDeleteListModal = function (id){
+        async function asyncShowDeleteListModal(id){
+            //TODO REMOVE THE DOCUMENT GETLEMENT BY ID LOL AND UPDATE DELETEMODAL
+            var deleteModal = document.getElementById("delete-modal");
+            storeReducer({
+                type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
+                payload: id
+            });
+            deleteModal.classList.add("is-visible");
+        }
+        asyncShowDeleteListModal(id);
     }
 
     // THIS GIVES OUR STORE AND ITS REDUCER TO ANY COMPONENT THAT NEEDS IT

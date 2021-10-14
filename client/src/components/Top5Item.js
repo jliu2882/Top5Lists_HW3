@@ -60,7 +60,7 @@ function Top5Item(props) {
     }
     function handleBlur(event){
         //let id = event.target.id.substring("list-".length);
-        //store.changeListName(id, event.target.value); //TODO change item name and add jstps thing
+        //store.changeListName(id, event.target.value); //TODO change item name and add jstps thing in storeindex.js
         toggleEdit();
     }
 

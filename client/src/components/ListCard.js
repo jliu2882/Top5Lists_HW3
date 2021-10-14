@@ -28,8 +28,10 @@ function ListCard(props) {
     }
     function handleDeleteList(event){
         event.stopPropagation();
-        //MARK THE CURRENT LIST TODO
-        store.showDeleteListModal();
+        let _id = event.target.id;
+        if (_id.indexOf('delete-list-') >= 0)
+            _id = ("" + _id).substring("delete-list-".length);
+        store.showDeleteListModal(_id);
     }
     function handleToggleEdit(event) {
         event.stopPropagation();
