@@ -315,7 +315,6 @@ export const useGlobalStore = () => {
     }
 
     store.deleteMarkedList = function (){
-        //delete marked list TODO
         async function asyncDeleteMarkedList() {
             const response = await api.deleteTop5ListById(store.listMarkedForDeletion);
             if(response.data.success){
