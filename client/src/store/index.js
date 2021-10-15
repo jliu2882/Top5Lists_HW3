@@ -271,8 +271,11 @@ export const useGlobalStore = () => {
         asyncSetCurrentList(id);
     }
     store.addMoveItemTransaction = function (start, end) {
-        let transaction = new MoveItem_Transaction(store, start, end);
-        tps.addTransaction(transaction);
+        if(start!==end){
+            let transaction = new MoveItem_Transaction(store, start, end);
+            tps.addTransaction(transaction);
+        }
+        //store.updateCurrentList(); //not needed and causes a 404 error that doesn't break the program but console yells at me so
     }
     store.moveItem = function (start, end) {
         start -= 1;
@@ -296,9 +299,12 @@ export const useGlobalStore = () => {
         store.updateCurrentList();
     }
     store.addChangeItemTransaction = function (id, oldText, newText) {
-        id-=1;
-        let transaction = new ChangeItem_Transaction(store, id, oldText, newText);
-        tps.addTransaction(transaction);
+        if(oldText!==newText){
+            id-=1;
+            let transaction = new ChangeItem_Transaction(store, id, oldText, newText);
+            tps.addTransaction(transaction);
+        }
+        store.updateCurrentList(); //update the foolproof design
     }
     store.changeItem = function (id, newText) {
         store.currentList.items[id] = newText;

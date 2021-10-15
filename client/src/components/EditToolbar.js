@@ -50,10 +50,10 @@ function EditToolbar() {
                 &#x21B7;
             </div>
             <div
-                disabled={editStatus}
+                disabled={!store.currentList||editStatus}
                 id='close-button'
-                onClick={editStatus?nothing:handleClose}
-                className={enabledButtonClass}>
+                onClick={!store.currentList||editStatus?nothing:handleClose}
+                className={(!store.currentList)?"top5-button-disabled":enabledButtonClass}>
                 &#x24E7;
             </div>
         </div>
