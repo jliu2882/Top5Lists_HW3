@@ -232,6 +232,7 @@ export const useGlobalStore = () => {
     // THIS FUNCTION LOADS ALL THE ID, NAME PAIRS SO WE CAN LIST ALL THE LISTS
     store.loadIdNamePairs = function () {
         async function asyncLoadIdNamePairs() {
+            tps.clearAllTransactions();
             const response = await api.getTop5ListPairs();
             if (response.data.success) {
                 let pairsArray = response.data.idNamePairs;
@@ -322,7 +323,13 @@ export const useGlobalStore = () => {
     }
     store.redo = function () {
         tps.doTransaction();
-    } //TODO CLEAR TRNASATION STCK
+    }
+    store.hasUndo = function () {
+        return tps.hasTransactionToUndo();
+    }
+    store.hasRedo = function () {
+        return tps.hasTransactionToRedo();
+    }
 
     // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME
     store.setIsListNameEditActive = function () {

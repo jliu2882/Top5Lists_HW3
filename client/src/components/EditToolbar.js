@@ -23,8 +23,11 @@ function EditToolbar() {
         store.closeCurrentList();
     }
     function nothing(){
-        console.log("bruh");
+        //kinda works idk
     }
+    let cantUndo = !store.hasUndo();
+    let cantRedo = !store.hasRedo();
+
     let editStatus = false;
     if (store.isListNameEditActive || store.isItemEditActive) {
         editStatus = true;
@@ -33,17 +36,17 @@ function EditToolbar() {
     return (
         <div id="edit-toolbar">
             <div
-                disabled={editStatus}
+                disabled={cantUndo || editStatus}
                 id='undo-button'
-                onClick={editStatus?nothing:handleUndo}
-                className={enabledButtonClass}>
+                onClick={cantUndo || editStatus?nothing:handleUndo}
+                className={cantUndo?"top5-button-disabled":enabledButtonClass}>
                 &#x21B6;
             </div>
             <div
-                disabled={editStatus}
+                disabled={cantRedo || editStatus}
                 id='redo-button'
-                onClick={editStatus?nothing:handleRedo}
-                className={enabledButtonClass}>
+                onClick={cantRedo || editStatus?nothing:handleRedo}
+                className={cantRedo?"top5-button-disabled":enabledButtonClass}>
                 &#x21B7;
             </div>
             <div
