@@ -23,8 +23,9 @@ function EditToolbar() {
         store.closeCurrentList();
     }
     let editStatus = false;
-    if (store.isListNameEditActive) {
+    if (store.isListNameEditActive || store.isItemEditActive) {
         editStatus = true;
+        enabledButtonClass = "top5-button-disabled"
     }
     return (
         <div id="edit-toolbar">
