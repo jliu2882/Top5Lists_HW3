@@ -14,6 +14,7 @@ const ListSelector = () => {
 
     useEffect(() => {
         store.loadIdNamePairs();
+        console.log('hi');
     }, []); //TODO get console to stop screaming at me without breaking the code
 
     function sortKeyNamePairsByName(keyNamePairs){

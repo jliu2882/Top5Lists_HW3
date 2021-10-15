@@ -22,6 +22,9 @@ function EditToolbar() {
         history.push("/");
         store.closeCurrentList();
     }
+    function nothing(){
+        console.log("bruh");
+    }
     let editStatus = false;
     if (store.isListNameEditActive || store.isItemEditActive) {
         editStatus = true;
@@ -32,21 +35,21 @@ function EditToolbar() {
             <div
                 disabled={editStatus}
                 id='undo-button'
-                onClick={handleUndo}
+                onClick={editStatus?nothing:handleUndo}
                 className={enabledButtonClass}>
                 &#x21B6;
             </div>
             <div
                 disabled={editStatus}
                 id='redo-button'
-                onClick={handleRedo}
+                onClick={editStatus?nothing:handleRedo}
                 className={enabledButtonClass}>
                 &#x21B7;
             </div>
             <div
                 disabled={editStatus}
                 id='close-button'
-                onClick={handleClose}
+                onClick={editStatus?nothing:handleClose}
                 className={enabledButtonClass}>
                 &#x24E7;
             </div>

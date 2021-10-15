@@ -12,8 +12,8 @@ import { GlobalStoreContext } from '../store'
 function DeleteModal() {
     const { store } = useContext(GlobalStoreContext);
     let name = "";
-    if (store.listMarked) { //store.listmarkedfordleetion TODO fix listmarked before opening
-        name = store.currentList.name;
+    if (store.listMarkedForDeletion) {
+        name = store.listMarkedForDeletion.name;
     }
     function handleDeleteList(event) {
         store.deleteMarkedList();

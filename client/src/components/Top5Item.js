@@ -49,7 +49,7 @@ function Top5Item(props) {
     function toggleEdit() {
         let newActive = !editActive;
         if (newActive) {
-            store.setIsItemNameEditActive(); //TODO set to item things if we need idk
+            store.setIsItemNameEditActive();
         }
         setEditActive(newActive);
     }
@@ -70,7 +70,7 @@ function Top5Item(props) {
     if (draggedTo) {
         itemClass = "top5-item-dragged-to";
     }
-    let cardStatus = false; //TODO FOOLPROOF
+    let cardStatus = false;
     if (store.isItemEditActive) {
         cardStatus = true;
     }
@@ -88,6 +88,7 @@ function Top5Item(props) {
             draggable="true"
             >
             <input
+                disabled={cardStatus}
                 type="button"
                 id={"edit-item-" + index + 1}
                 className={cardStatus?"list-card-button-disabled":"list-card-button"}

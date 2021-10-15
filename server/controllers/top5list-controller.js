@@ -90,10 +90,11 @@ deleteTop5List = async (req, res) => {
                 .json({ success: false, error: `Top 5 List not found` })
         }
         return res.status(200).json({ success: true, data: top5List })
-    }).then((top5List)=>{
+    }).catch(err=>console.log(err)).then((top5List)=>{
         Top5List.deleteOne({ _id: req.params.id }, function (err) {});
-    })
+    }).catch(err=>console.log(err))
 }
+
 getTop5ListById = async (req, res) => {
     await Top5List.findOne({ _id: req.params.id }, (err, list) => {
         if (err) {

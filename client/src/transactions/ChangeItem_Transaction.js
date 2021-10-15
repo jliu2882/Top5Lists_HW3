@@ -18,7 +18,7 @@ export default class ChangeItem_Transaction extends jsTPS_Transaction {
         this.newText = initNewText;
     }
     
-    doTransaction() { //TODO MAKE CHANGEITME IN STORE
+    doTransaction() {
         this.store.changeItem(this.id, this.newText);
     }
     

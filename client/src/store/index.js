@@ -322,7 +322,7 @@ export const useGlobalStore = () => {
     }
     store.redo = function () {
         tps.doTransaction();
-    }
+    } //TODO CLEAR TRNASATION STCK
 
     // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME
     store.setIsListNameEditActive = function () {
@@ -345,7 +345,7 @@ export const useGlobalStore = () => {
 
     store.deleteMarkedList = function (){
         async function asyncDeleteMarkedList() {
-            const response = await api.deleteTop5ListById(store.listMarkedForDeletion);
+            const response = await api.deleteTop5ListById(store.listMarkedForDeletion._id);
             if(response.data.success){
                 storeReducer({
                     type: GlobalStoreActionType.DELETE_LIST, //why 404; fixed in server code
@@ -360,12 +360,15 @@ export const useGlobalStore = () => {
     store.showDeleteListModal = function (id){
         async function asyncShowDeleteListModal(id){
             //TODO REMOVE THE DOCUMENT GETLEMENT BY ID LOL AND UPDATE DELETEMODAL
-            var deleteModal = document.getElementById("delete-modal");
-            storeReducer({
-                type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
-                payload: id
-            });
-            deleteModal.classList.add("is-visible");
+            const response = await api.getTop5ListById(id);
+            if(response.data.success){
+                var deleteModal = document.getElementById("delete-modal");
+                storeReducer({
+                    type: GlobalStoreActionType.MARK_LIST_FOR_DELETION,
+                    payload: response.data.top5List
+                });
+                deleteModal.classList.add("is-visible");
+            }
         }
         asyncShowDeleteListModal(id);
     }
