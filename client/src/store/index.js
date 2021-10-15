@@ -315,43 +315,16 @@ export const useGlobalStore = () => {
     }
 
     store.deleteMarkedList = function (){
-        store.hideDeleteListModal();
         //delete marked list TODO
-        console.log(store.listMarkedForDeletion+"con leche");
         async function asyncDeleteMarkedList() {
-            console.log("made it here");
             const response = await api.deleteTop5ListById(store.listMarkedForDeletion);
-            console.log("made it here2x");
             if(response.data.success){
                 storeReducer({
-                    type: GlobalStoreActionType.DELETE_LIST, //why 404
-                });
+                    type: GlobalStoreActionType.DELETE_LIST, //why 404; fixed in server code
+                }); //why not update view
             }
-            /*if (response.data.success) {
-                if(response.data!==null){
-                    let top5List = response.data.data;
-                    async function updateList(top5List) {
-                        response = await api.updateTop5ListById(top5List._id, top5List);
-                        if (response.data.success) {
-                            async function getListPairs(top5List) {
-                                response = await api.getTop5ListPairs();
-                                if (response.data.success) {
-                                    let pairsArray = response.data.idNamePairs;
-                                    storeReducer({
-                                        type: GlobalStoreActionType.DELETE_LIST, //why 404
-                                        payload: {
-                                            idNamePairs: pairsArray,
-                                        }
-                                    });
-                                }
-                            }
-                            getListPairs(top5List);
-                        }
-                    }
-                    updateList(top5List);
-                }
-            }
-            */
+            store.loadIdNamePairs();
+            store.hideDeleteListModal();
         }
         asyncDeleteMarkedList();
     }
