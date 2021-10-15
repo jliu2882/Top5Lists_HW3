@@ -19,10 +19,10 @@ export default class ChangeItem_Transaction extends jsTPS_Transaction {
     }
     
     doTransaction() { //TODO MAKE CHANGEITME IN STORE
-        //this.store.changeItem(this.id, this.newText);
+        this.store.changeItem(this.id, this.newText);
     }
     
     undoTransaction() {
-        //this.store.changeItem(this.id, this.oldText);
+        this.store.changeItem(this.id, this.oldText);
     }
 }

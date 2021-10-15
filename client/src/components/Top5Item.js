@@ -49,7 +49,7 @@ function Top5Item(props) {
     function toggleEdit() {
         let newActive = !editActive;
         if (newActive) {
-            //store.setIsListNameEditActive(); TODO set to item things
+            //store.setIsListNameEditActive(); TODO set to item things if we need idk
         }
         setEditActive(newActive);
     }
@@ -59,8 +59,10 @@ function Top5Item(props) {
         }
     }
     function handleBlur(event){
-        //let id = event.target.id.substring("list-".length);
-        //store.changeListName(id, event.target.value); //TODO change item name and add jstps thing in storeindex.js
+        //let id = event.target.id.substring("ltargetist-".length);
+        //store.changeListName(id, event..value); //TODO change item name and add jstps thing in storeindex.js
+        let id = ("" + event.target.id).substring('item-'.length);
+        store.addChangeItemTransaction(id, props.text, event.target.value);
         toggleEdit();
     }
 
@@ -70,7 +72,7 @@ function Top5Item(props) {
     if (draggedTo) {
         itemClass = "top5-item-dragged-to";
     }
-    //let cardStatus = false;
+    //let cardStatus = false; //TODO FOOLPROOF
     //if (store.isItemEditActive) {
     //    cardStatus = true;
     //}
