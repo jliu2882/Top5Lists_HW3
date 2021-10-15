@@ -110,7 +110,7 @@ export const useGlobalStore = () => {
             }
             case GlobalStoreActionType.DELETE_LIST: {
                 return setStore({
-                    idNamePairs: store.idNamePairs,//payload.idNamePairs,
+                    idNamePairs: store.idNamePairs, //payload.idNamePairs,
                     currentList: store.currentList,
                     newListCounter: store.newListCounter,
                     isListNameEditActive: store.isListNameEditActive,
@@ -319,7 +319,9 @@ export const useGlobalStore = () => {
         //delete marked list TODO
         console.log(store.listMarkedForDeletion+"con leche");
         async function asyncDeleteMarkedList() {
+            console.log("made it here");
             const response = await api.deleteTop5ListById(store.listMarkedForDeletion);
+            console.log("made it here2x");
             if(response.data.success){
                 storeReducer({
                     type: GlobalStoreActionType.DELETE_LIST, //why 404
