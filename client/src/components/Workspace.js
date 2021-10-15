@@ -14,7 +14,9 @@ function Workspace() {
     store.history = useHistory();
 
     useEffect(() => {
-        console.log(store);
+        //get the URL and parse it to get the list id
+        //use the list id and set as currentlist to continue rerender
+        //store.setCurrentList = function (id) {
     });
 
     let editItems = "";
