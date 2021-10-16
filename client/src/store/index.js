@@ -351,7 +351,6 @@ export const useGlobalStore = () => {
     }
 
     store.hideDeleteListModal = function (){
-        //TODO REMOVE THE DOCUMENT GETLEMENT BY ID LOL
         var deleteModal = document.getElementById("delete-modal");
         deleteModal.classList.remove("is-visible");
         storeReducer({ //re-allow controls
@@ -360,7 +359,7 @@ export const useGlobalStore = () => {
         });
     }
 
-    store.deleteMarkedList = function (){
+    store.deleteMarkedList = function (){ //TODO BUG IN DELETING LAST LIST
         async function asyncDeleteMarkedList() {
             const response = await api.deleteTop5ListById(store.listMarkedForDeletion._id);
             if(response.data.success){
@@ -376,7 +375,6 @@ export const useGlobalStore = () => {
 
     store.showDeleteListModal = function (id){
         async function asyncShowDeleteListModal(id){
-            //TODO REMOVE THE DOCUMENT GETLEMENT BY ID LOL AND UPDATE DELETEMODAL
             const response = await api.getTop5ListById(id);
             if(response.data.success){
                 var deleteModal = document.getElementById("delete-modal");
