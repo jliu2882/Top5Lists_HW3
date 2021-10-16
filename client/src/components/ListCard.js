@@ -66,7 +66,7 @@ function ListCard(props) {
         selectClass = "selected-list-card";
     }
     let cardStatus = false;
-    if (store.isListNameEditActive) {
+    if (store.isListNameEditActive || store.listMarkedForDeletion!==null) {
         cardStatus = true;
     }
     let cardElement =

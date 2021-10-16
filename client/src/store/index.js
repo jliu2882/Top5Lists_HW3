@@ -354,6 +354,10 @@ export const useGlobalStore = () => {
         //TODO REMOVE THE DOCUMENT GETLEMENT BY ID LOL
         var deleteModal = document.getElementById("delete-modal");
         deleteModal.classList.remove("is-visible");
+        storeReducer({ //re-allow controls
+            type: GlobalStoreActionType.SET_CURRENT_LIST,
+            payload: store.currentList
+        });
     }
 
     store.deleteMarkedList = function (){

@@ -15,17 +15,25 @@ function DeleteModal() {
     if (store.listMarkedForDeletion) {
         name = store.listMarkedForDeletion.name;
     }
-    function handleDeleteList(event) {
+    function handleDeleteList() {
         store.deleteMarkedList();
     }
-    function handleCloseModal(event) {
+    function handleCloseModal() {
         store.hideDeleteListModal();
+    }
+    function handleClick(event){
+        if(event.target.id!==null){
+            if(event.target.id==="delete-modal"){
+                handleCloseModal();
+            }
+        }
     }
     return (
         <div
             className="modal"
             id="delete-modal"
-            data-animation="slideInOutLeft">
+            data-animation="slideInOutLeft"
+            onClick={handleClick}>
             <div className="modal-dialog">
                 <header className="dialog-header">
                     Delete the {name} Top 5 List?

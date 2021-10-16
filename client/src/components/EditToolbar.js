@@ -29,7 +29,7 @@ function EditToolbar() {
     let cantRedo = !store.hasRedo();
 
     let editStatus = false;
-    if (store.isListNameEditActive || store.isItemEditActive) {
+    if (store.isListNameEditActive || store.isItemEditActive || store.listMarkedForDeletion!==null) {
         editStatus = true;
         enabledButtonClass = "top5-button-disabled"
     }
