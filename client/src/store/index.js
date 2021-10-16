@@ -359,7 +359,7 @@ export const useGlobalStore = () => {
         });
     }
 
-    store.deleteMarkedList = function (){ //TODO BUG IN DELETING LAST LIST
+    store.deleteMarkedList = function (){
         async function asyncDeleteMarkedList() {
             const response = await api.deleteTop5ListById(store.listMarkedForDeletion._id);
             if(response.data.success){
