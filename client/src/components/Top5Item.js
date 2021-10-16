@@ -25,8 +25,13 @@ function Top5Item(props) {
     }
 
     function handleDragLeave(event) {
-        event.preventDefault();
-        setDraggedTo(false);
+        let leaving = !(event.target.className==="top5-item-dragged-to"&&event.relatedTarget.className==="list-card-button"||
+                        event.target.className==="list-card-button"&&event.relatedTarget.className==="top5-item-dragged-to");
+        if(leaving){ //allow dragging over the edit button
+            event.preventDefault();
+            setDraggedTo(false);
+            toggleDrop();
+        }
     }
 
     function handleDrop(event) {
@@ -37,7 +42,7 @@ function Top5Item(props) {
         let sourceId = event.dataTransfer.getData("item");
         sourceId = sourceId.substring(sourceId.indexOf("-") + 1);
         setDraggedTo(false);
-
+        toggleDrop();
         // UPDATE THE LIST
         store.addMoveItemTransaction(sourceId, targetId);
     }
@@ -52,6 +57,12 @@ function Top5Item(props) {
             store.setIsItemNameEditActive();
         }
         setEditActive(newActive);
+    }
+    function toggleDrop() {
+        let newActive = !editActive;
+        if (newActive) {
+            store.setIsItemNameEditActive();
+        }
     }
     function handleKeyPress(event) {
         if (event.code === "Enter") {
