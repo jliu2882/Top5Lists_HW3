@@ -13,6 +13,7 @@ function Top5Item(props) {
 
     function handleDragStart(event) {
         event.dataTransfer.setData("item", event.target.id);
+        toggleDrop();
     }
 
     function handleDragOver(event) {
@@ -30,7 +31,6 @@ function Top5Item(props) {
         if(leaving){ //allow dragging over the edit button
             event.preventDefault();
             setDraggedTo(false);
-            toggleDrop();
         }
     }
 
@@ -59,10 +59,10 @@ function Top5Item(props) {
         setEditActive(newActive);
     }
     function toggleDrop() {
-        let newActive = !editActive;
-        if (newActive) {
-            store.setIsItemNameEditActive();
-        }
+        //let newActive = !editActive;
+        //if (newActive) {
+        //    store.setIsItemNameEditActive();
+        //}
     }
     function handleKeyPress(event) {
         if (event.code === "Enter") {
