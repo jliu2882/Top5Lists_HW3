@@ -24,7 +24,7 @@ function ListCard(props) {
             // CHANGE THE CURRENT LIST
             store.setCurrentList(_id);
         }
-        handleToggleEdit(event);
+        //handleToggleEdit(event);
     }
     function handleDeleteList(event){
         event.stopPropagation();
