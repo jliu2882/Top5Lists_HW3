@@ -106,7 +106,7 @@ export const useGlobalStore = () => {
                     idNamePairs: payload.idNamePairs,
                     currentList: payload.top5List,
                     newListCounter: store.newListCounter+1,
-                    isListNameEditActive: true,
+                    isListNameEditActive: false, //isListNameEditActive: true, USE THIS IS EDITMODE IS EDIT LIST NAME
                     isItemEditActive: false,
                     listMarkedForDeletion: null
                 });
@@ -181,6 +181,7 @@ export const useGlobalStore = () => {
                     }
                 }
                 updateList(top5List);
+                store.setCurrentList(top5List._id); //DISABLE IF EDIT MODE MEANS EDIT LIST NAME
             }
         }
         asyncAddNewList();
