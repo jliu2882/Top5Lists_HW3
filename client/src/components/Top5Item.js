@@ -26,8 +26,9 @@ function Top5Item(props) {
     }
 
     function handleDragLeave(event) {
-        let leaving = !((event.target.className==="top5-item-dragged-to"&&event.relatedTarget.className==="list-card-button")||
-                        (event.target.className==="list-card-button"&&event.relatedTarget.className==="top5-item-dragged-to"));
+        let leaving = true; //would lead to a hard to reproduce bug but often enough to be an issue
+        //              !((event.target.className==="top5-item-dragged-to"&&event.relatedTarget.className==="list-card-button")||
+        //                (event.target.className==="list-card-button"&&event.relatedTarget.className==="top5-item-dragged-to"));
         if(leaving){ //allow dragging over the edit button
             event.preventDefault();
             setDraggedTo(false);
