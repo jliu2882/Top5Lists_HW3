@@ -117,7 +117,7 @@ function Top5Item(props) {
             className={itemClass}
             type='text'
             onKeyPress={handleKeyPress}
-            onBlur={handleBlur}
+            //onBlur={handleBlur}
             defaultValue={props.text}
         />;
     }

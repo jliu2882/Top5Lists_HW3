@@ -107,7 +107,7 @@ function ListCard(props) {
                 className='list-card'
                 type='text'
                 onKeyPress={handleKeyPress}
-                onBlur={handleBlur}
+                //onBlur={handleBlur}
                 onChange={handleUpdateText} //useless i think unless you add features
                 defaultValue={idNamePair.name}
             />;
